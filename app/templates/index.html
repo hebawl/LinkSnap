@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkSnap - URL Shortener</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <main class="container">
+        <div class="logo">LinkSnap</div>
+        <h1>Shorten your links.</h1>
+        <p class="subtitle">Long URLs, meet your shorter side.</p>
+
+        <form id="shorten-form">
+            <label for="url-input">Paste your long URL</label>
+            <div class="input-row">
+                <input id="url-input" type="url"
+                       placeholder="https://example.com/my-long-link"
+                       required>
+                <button type="submit">Shorten URL</button>
+            </div>
+        </form>
+
+        <p id="message" role="status"></p>
+
+        <section id="result" hidden>
+            <label for="short-url">Your short link</label>
+            <div class="input-row">
+                <input id="short-url" type="text" readonly>
+                <button id="copy-button" type="button">Copy</button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const form = document.getElementById("shorten-form");
+        const urlInput = document.getElementById("url-input");
+        const message = document.getElementById("message");
+        const result = document.getElementById("result");
+        const shortUrl = document.getElementById("short-url");
+        const copyButton = document.getElementById("copy-button");
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            message.textContent = "Creating your short link...";
+            result.hidden = true;
+
+            try {
+                const response = await fetch("/links", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url: urlInput.value })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(
+                        typeof data.detail === "string"
+                            ? data.detail
+                            : "Please enter a valid URL."
+                    );
+                }
+
+                shortUrl.value = data.short_url;
+                result.hidden = false;
+                message.textContent = "Your link is ready!";
+            } catch (error) {
+                message.textContent =
+                    error.message || "Something went wrong. Try again.";
+            }
+        });
+
+        copyButton.addEventListener("click", async () => {
+            try {
+                await navigator.clipboard.writeText(shortUrl.value);
+                message.textContent = "Short link copied!";
+            } catch {
+                shortUrl.select();
+                message.textContent = "Select and copy the link manually.";
+            }
+        });
+    </script>
+</body>
+</html>

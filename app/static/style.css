@@ -1,0 +1,138 @@
+﻿:root {
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    color: #f4f6ff;
+    background: #0b1020;
+    font-synthesis: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background:
+        radial-gradient(ellipse at top, #202b50 0%, transparent 55%),
+        #0b1020;
+}
+
+.container {
+    width: 100%;
+    max-width: 680px;
+    padding: 48px;
+    border: 1px solid #303954;
+    border-radius: 24px;
+    background: rgba(17, 24, 45, 0.94);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+    display: inline-block;
+    margin-bottom: 28px;
+    color: #8b9dff;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(32px, 6vw, 48px);
+    letter-spacing: -1.8px;
+    line-height: 1.1;
+}
+
+.subtitle {
+    margin: 14px 0 36px;
+    color: #a8b1ca;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #d8def0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.input-row {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    width: 100%;
+    min-width: 0;
+    padding: 15px 16px;
+    border: 1px solid #394563;
+    border-radius: 12px;
+    outline: none;
+    background: #0c1326;
+    color: #ffffff;
+    font: inherit;
+}
+
+input:focus {
+    border-color: #8b9dff;
+    box-shadow: 0 0 0 3px rgba(139, 157, 255, 0.15);
+}
+
+button {
+    flex-shrink: 0;
+    padding: 15px 20px;
+    border: 0;
+    border-radius: 12px;
+    background: #8b9dff;
+    color: #10152b;
+    font: inherit;
+    font-weight: 750;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    background: #a7b3ff;
+}
+
+button:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 3px;
+}
+
+#message {
+    min-height: 24px;
+    margin: 18px 0;
+    color: #aebaff;
+    font-size: 14px;
+}
+
+#result {
+    margin-top: 20px;
+    padding-top: 22px;
+    border-top: 1px solid #303954;
+}
+
+#result input {
+    color: #b8c3ff;
+}
+
+@media (max-width: 520px) {
+    .container {
+        padding: 28px 20px;
+    }
+
+    .input-row {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+}
