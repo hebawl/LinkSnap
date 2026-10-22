@@ -8,6 +8,7 @@ from pydantic import BaseModel, HttpUrl
 from psycopg.errors import UniqueViolation
 import secrets
 import string
+import os
 
 from app.db import get_connection
 
@@ -74,7 +75,7 @@ def create_link(request: URLRequest):
             return {
                 "id": row[0],
                 "short_code": short_code,
-                "short_url": f"http://127.0.0.1:8000/{short_code}",
+                "short_url": f"{os.getenv('BASE_URL', 'http://127.0.0.1:8000').rstrip('/')}/{short_code}",
                 "original_url": original_url
             }
 
